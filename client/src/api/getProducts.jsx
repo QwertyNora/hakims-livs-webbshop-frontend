@@ -9,7 +9,7 @@ function GetAllProducts({ selectedCategory }) {
   const [selectedProduct, setSelectedProduct] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:8080/products")
+    fetch("https://hakims-livs-webbshop-1.onrender.com/products")
       .then((response) => response.json())
       .then((data) => {
         setAllProducts(data);
