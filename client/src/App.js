@@ -3,7 +3,8 @@ import Home from "./pages/home";
 import Contact from "./pages/contact";
 import Login from "./pages/login";
 import Checkout from "./pages/checkout";
-import Admin from "./pages/admin";
+import Admin from "./adminPages/adminStartPage";
+import AdminAddProduct from "./adminPages/adminAddProduct";
 import "./App.css";
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
         <Routes>
           <Route index element={<Home />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/admin/add/products" element={<AdminAddProduct />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/login" element={<Login />} />
