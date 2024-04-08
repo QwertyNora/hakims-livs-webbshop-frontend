@@ -4,7 +4,7 @@ const { Column, ColumnGroup } = Table;
 const data = [
   {
     key: "1",
-    firstName: "John",
+    productTitle: "NOCCO",
     lastName: "Brown",
     age: 32,
     address: "New York No. 1 Lake Park",
@@ -12,7 +12,7 @@ const data = [
   },
   {
     key: "2",
-    firstName: "Jim",
+    productTitle: "MONSTER",
     lastName: "Green",
     age: 42,
     address: "London No. 1 Lake Park",
@@ -20,7 +20,7 @@ const data = [
   },
   {
     key: "3",
-    firstName: "Joe",
+    productTitle: "BÄRS",
     lastName: "Black",
     age: 32,
     address: "Sydney No. 1 Lake Park",
@@ -29,10 +29,9 @@ const data = [
 ];
 const StorageTable = () => (
   <Table dataSource={data}>
-    <ColumnGroup title="Name">
-      <Column title="First Name" dataIndex="firstName" key="firstName" />
-      <Column title="Last Name" dataIndex="lastName" key="lastName" />
-    </ColumnGroup>
+    <Column title="Product Title" dataIndex="productTitle" key="productTitle" />
+    <Column title="Last Name" dataIndex="lastName" key="lastName" />
+
     <Column title="Age" dataIndex="age" key="age" />
     <Column title="Address" dataIndex="address" key="address" />
     <Column
@@ -60,7 +59,6 @@ const StorageTable = () => (
       key="action"
       render={(_, record) => (
         <Space size="middle">
-          <a>Invite {record.lastName}</a>
           <a>Delete</a>
         </Space>
       )}
