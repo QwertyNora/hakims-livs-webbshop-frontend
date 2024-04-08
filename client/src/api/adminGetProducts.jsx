@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Table, Tag, Space } from "antd";
 import Styles from "../styles/getAllProducts.module.css";
+import { DeleteOutlined } from "@ant-design/icons";
+import { Button, Popconfirm } from "antd";
 
 function AdminGetProducts({ selectedCategory }) {
   const [products, setProducts] = useState([]); // State to hold fetched products
@@ -26,7 +28,28 @@ function AdminGetProducts({ selectedCategory }) {
         key="action"
         render={(_, record) => (
           <Space size="middle">
-            <a>Delete</a>
+            <a>
+              <Popconfirm
+                title="Edit this product"
+                description="Are you sure to edit this product?"
+                okText="Yes"
+                cancelText="No"
+              >
+                <Button type="primary">Edit</Button>
+              </Popconfirm>
+            </a>
+            <a>
+              <Popconfirm
+                title="Delete this product"
+                description="Are you sure to delete this product?"
+                okText="Yes"
+                cancelText="No"
+              >
+                <Button danger>
+                  Delete <DeleteOutlined />
+                </Button>
+              </Popconfirm>
+            </a>
           </Space>
         )}
       />
