@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Card, Modal, Button } from "antd";
+import { Card, Modal } from "antd";
 import Styles from "../styles/getAllProducts.module.css";
 
 function GetAllProducts({ selectedCategory }) {
