@@ -1,15 +1,5 @@
 import React from "react";
-import {
-  Button,
-  Cascader,
-  DatePicker,
-  Form,
-  Input,
-  InputNumber,
-  Mentions,
-  Select,
-  TreeSelect,
-} from "antd";
+import { Button, DatePicker, Form, Input, InputNumber } from "antd";
 const { RangePicker } = DatePicker;
 const formItemLayout = {
   labelCol: {
@@ -30,144 +20,105 @@ const formItemLayout = {
   },
 };
 const AddProductsForm = () => (
-  <Form
-    {...formItemLayout}
-    variant="filled"
-    style={{
-      maxWidth: 600,
-    }}
-  >
-    <Form.Item
-      label="Input"
-      name="Input"
-      rules={[
-        {
-          required: true,
-          message: "Please input!",
-        },
-      ]}
+  <>
+    <Form
+      {...formItemLayout}
+      style={{ width: "100%", maxWidth: "600px", margin: "0 auto" }}
+      variant="filled"
     >
-      <Input />
-    </Form.Item>
+      <h1>Add New Product</h1>
+      <Form.Item
+        label="Product Title"
+        name="Product Title"
+        rules={[
+          {
+            required: true,
+            message: "Please input!",
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+      <Form.Item
+        label="Product Category"
+        name="Product Category"
+        rules={[
+          {
+            required: true,
+            message: "Please input!",
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+      <Form.Item
+        label="Product Brand"
+        name="Product Brand"
+        rules={[
+          {
+            required: true,
+            message: "Please input!",
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+      <Form.Item
+        label="Product Price"
+        name="Product Price"
+        rules={[
+          {
+            required: true,
+            message: "Please input!",
+          },
+        ]}
+      >
+        <InputNumber
+          style={{
+            width: "100%",
+          }}
+        />
+      </Form.Item>
+      <Form.Item
+        label="Product Quantity"
+        name="Product Quantity"
+        rules={[
+          {
+            required: true,
+            message: "Please input!",
+          },
+        ]}
+      >
+        <InputNumber
+          style={{
+            width: "100%",
+          }}
+        />
+      </Form.Item>
+      <Form.Item
+        label="Product Description"
+        name="Product Description"
+        rules={[
+          {
+            required: true,
+            message: "Please input!",
+          },
+        ]}
+      >
+        <Input.TextArea />
+      </Form.Item>
 
-    <Form.Item
-      label="InputNumber"
-      name="InputNumber"
-      rules={[
-        {
-          required: true,
-          message: "Please input!",
-        },
-      ]}
-    >
-      <InputNumber
-        style={{
-          width: "100%",
+      <Form.Item
+        wrapperCol={{
+          offset: 6,
+          span: 16,
         }}
-      />
-    </Form.Item>
-
-    <Form.Item
-      label="TextArea"
-      name="TextArea"
-      rules={[
-        {
-          required: true,
-          message: "Please input!",
-        },
-      ]}
-    >
-      <Input.TextArea />
-    </Form.Item>
-
-    <Form.Item
-      label="Mentions"
-      name="Mentions"
-      rules={[
-        {
-          required: true,
-          message: "Please input!",
-        },
-      ]}
-    >
-      <Mentions />
-    </Form.Item>
-
-    <Form.Item
-      label="Select"
-      name="Select"
-      rules={[
-        {
-          required: true,
-          message: "Please input!",
-        },
-      ]}
-    >
-      <Select />
-    </Form.Item>
-
-    <Form.Item
-      label="Cascader"
-      name="Cascader"
-      rules={[
-        {
-          required: true,
-          message: "Please input!",
-        },
-      ]}
-    >
-      <Cascader />
-    </Form.Item>
-
-    <Form.Item
-      label="TreeSelect"
-      name="TreeSelect"
-      rules={[
-        {
-          required: true,
-          message: "Please input!",
-        },
-      ]}
-    >
-      <TreeSelect />
-    </Form.Item>
-
-    <Form.Item
-      label="DatePicker"
-      name="DatePicker"
-      rules={[
-        {
-          required: true,
-          message: "Please input!",
-        },
-      ]}
-    >
-      <DatePicker />
-    </Form.Item>
-
-    <Form.Item
-      label="RangePicker"
-      name="RangePicker"
-      rules={[
-        {
-          required: true,
-          message: "Please input!",
-        },
-      ]}
-    >
-      <RangePicker />
-    </Form.Item>
-
-    <Form.Item
-      wrapperCol={{
-        offset: 6,
-        span: 16,
-      }}
-    >
-      <Button type="primary" htmlType="submit">
-        Submit
-      </Button>
-    </Form.Item>
-  </Form>
+      >
+        <Button type="primary" htmlType="submit">
+          Submit
+        </Button>
+      </Form.Item>
+    </Form>
+  </>
 );
 export default AddProductsForm;

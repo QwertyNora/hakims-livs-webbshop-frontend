@@ -33,9 +33,9 @@ const AdminAddProducts = () => {
           ))}
         </Menu>
       </Header>
-      <Content style={{ padding: "0 48px" }}>
-        <Breadcrumb style={{ margin: "16px 0" }}>
-          <Breadcrumb.Item>Admin panel</Breadcrumb.Item>
+      <Content style={{ padding: "0 68px" }}>
+        <Breadcrumb style={{ margin: "20px 0" }}>
+          <Breadcrumb.Item>Add product</Breadcrumb.Item>
         </Breadcrumb>
         <div
           style={{
@@ -43,10 +43,12 @@ const AdminAddProducts = () => {
             minHeight: 280,
             padding: 24,
             borderRadius: borderRadiusLG,
+            display: "flex",
+            justifyContent: "center",
           }}
         >
           {/* Content STARTS HERE  */}
-          Add product
+
           <AddProductsForm />
         </div>
       </Content>
