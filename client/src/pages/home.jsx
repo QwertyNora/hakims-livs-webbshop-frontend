@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { Input, Card, Modal, Button, Dropdown } from "antd";
 import GetAllProducts from "../api/getProducts";
+import DisplayCategories from "../api/getCategories";
 
 import Styles from "../styles/home.module.css";
 
@@ -205,6 +206,8 @@ function Home() {
           </div>
         </div>
       </div>
+      <DisplayCategories/>
+      
     </>
   );
 }
