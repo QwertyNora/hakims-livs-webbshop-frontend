@@ -33,8 +33,8 @@ const AdminAddProducts = () => {
           ))}
         </Menu>
       </Header>
-      <Content style={{ padding: "0 48px" }}>
-        <Breadcrumb style={{ margin: "10px 0" }}>
+      <Content style={{ padding: "0 68px" }}>
+        <Breadcrumb style={{ margin: "20px 0" }}>
           <Breadcrumb.Item>Add product</Breadcrumb.Item>
         </Breadcrumb>
         <div
