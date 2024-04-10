@@ -1,36 +1,50 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Form, Input, InputNumber, message, Select } from "antd";
 
 const formItemLayout = {
-  labelCol: {
-    xs: { span: 24 },
-    sm: { span: 6 },
-  },
-  wrapperCol: {
-    xs: { span: 24 },
-    sm: { span: 14 },
-  },
+  labelCol: { xs: { span: 24 }, sm: { span: 6 } },
+  wrapperCol: { xs: { span: 24 }, sm: { span: 14 } },
 };
 
 const AddProductsForm = () => {
   const [loading, setLoading] = useState(false);
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("");
+
+  const fetchCategories = async () => {
+    try {
+      const response = await fetch("http://localhost:8080/categories");
+      if (response.ok) {
+        const data = await response.json();
+        setCategories(data); // Assuming the API returns an array of categories
+      } else {
+        throw new Error("Failed to fetch categories");
+      }
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchCategories();
+  }, []); // Fetch categories on component mount
+
+  const handleChange = (value) => {
+    setSelectedCategory(value);
+  };
 
   const onFinish = async (values) => {
+    const { categoryName, ...otherProductData } = values; // Destructure category ID
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:8080/api/admin/add", {
+      const response = await fetch("http://localhost:8080/products/new", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(values),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...otherProductData, category: categoryName }), // Include category ID
       });
-
       if (!response.ok) {
         throw new Error("Failed to add product");
       }
-
       message.success("Product added successfully!");
     } catch (error) {
       console.error("Error adding product:", error);
@@ -38,10 +52,6 @@ const AddProductsForm = () => {
     } finally {
       setLoading(false);
     }
-  };
-
-  const handleChange = (value: string) => {
-    console.log(`selected ${value}`);
   };
 
   return (
@@ -60,24 +70,24 @@ const AddProductsForm = () => {
         >
           <Input />
         </Form.Item>
-
         <Form.Item
           label="Product Category"
           name="Category"
           rules={[{ required: true, message: "Please input!" }]}
         >
           <Select
+            name="._"
             defaultValue="Select Category"
             style={{ width: "100%" }}
             onChange={handleChange}
-            options={[
-              { value: "jack", label: "Jack" },
-              { value: "lucy", label: "Lucy" },
-              { value: "Yiminghe", label: "yiminghe" },
-            ]}
-          />
+          >
+            {categories.map((category) => (
+              <Select.Option key={category._id} value={category._id}>
+                {category.name}
+              </Select.Option>
+            ))}
+          </Select>
         </Form.Item>
-
         <Form.Item
           label="Product Brand"
           name="brand"
