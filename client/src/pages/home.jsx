@@ -2,10 +2,10 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { Input, Card, Modal, Button, Dropdown } from "antd";
 import GetAllProducts from "../api/getProducts";
+import SearchBar from "../components/searchBar";
 
 import Styles from "../styles/home.module.css";
 
-const Search = Input.Search;
 const { Meta } = Card;
 
 function Home() {
@@ -42,16 +42,7 @@ function Home() {
             </a>
           </li>
           <li>
-            <Search
-              className={Styles.Searchbar}
-              placeholder="SÖK PRODUKTER"
-              style={{
-                width: 800,
-                borderRadius: "4px",
-              }}
-              size={"large"}
-              onSearch={(value) => console.log(value)}
-            />
+            <SearchBar />
           </li>
           <li>
             <Link to="/login" className={Styles.login}>

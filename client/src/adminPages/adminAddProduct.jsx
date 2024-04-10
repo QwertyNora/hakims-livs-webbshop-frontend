@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import AddProductsForm from "./addProductsForm";
+import AddProductsForm from "../api/addProductsForm";
 
 import { Breadcrumb, Layout, Menu, theme } from "antd";
 const { Header, Content, Footer } = Layout;
