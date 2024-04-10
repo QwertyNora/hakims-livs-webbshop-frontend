@@ -1,47 +1,75 @@
 import React, { useState, useEffect } from "react";
-import { Table, Tag, Space } from "antd";
+import { Table, Space } from "antd";
 import Styles from "../styles/getAllProducts.module.css";
-import { DeleteOutlined } from "@ant-design/icons";
-import { Button, Popconfirm } from "antd";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { Button, message, Popconfirm, Switch } from "antd";
+import AdminEditProduct from "./adminEditProduct";
 
 function AdminGetProducts({ selectedCategory }) {
-  const [products, setProducts] = useState([]); // State to hold fetched products
+  const [products, setProducts] = useState([]);
+  const [showEditProductModal, setShowEditProductModal] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [open, setOpen] = useState(false);
+
+  const fetchProducts = () => {
+    fetch("http://localhost:8080/products")
+      .then((response) => response.json())
+      .then((data) => setProducts(data))
+      .catch((error) => console.error("Error fetching data:", error));
+  };
 
   useEffect(() => {
-    fetch("https://hakims-livs-webbshop-1.onrender.com/products")
-      .then((response) => response.json())
-      .then((data) => {
-        setProducts(data); // Set the fetched products to state
+    fetchProducts();
+  }, []);
+
+  const showEditModal = (product) => {
+    setSelectedProduct(product);
+    setShowEditProductModal(true);
+  };
+
+  const deleteProduct = (id) => {
+    fetch(`http://localhost:8080/products/${id}`, {
+      method: "DELETE",
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to delete product");
+        }
+        return response.json();
       })
-      .catch((error) => console.error("Error fetching data:", error));
-  }, []); // Empty dependency array means this effect runs once on mount
+      .then(() => {
+        message.success("Product deleted successfully");
+        fetchProducts(); // Refresh the product list
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        message.error("Failed to delete product");
+      });
+  };
+
+  const handleDelete = (product) => {
+    setOpen(false); // Close the confirmation dialog
+    deleteProduct(product._id); // Call deleteProduct with the product's ID
+  };
 
   return (
-    <Table dataSource={products} rowKey="id">
-      <Table.Column title="Product Title" dataIndex="title" key="title" />
-      <Table.Column title="Price" dataIndex="price" key="price" />
-      <Table.Column title="Quantity" dataIndex="quantity" key="quantity" />
-      <Table.Column title="Brand" dataIndex="brand" key="brand" />
-
-      <Table.Column
-        title="Action"
-        key="action"
-        render={(_, record) => (
-          <Space size="middle">
-            <a>
+    <>
+      <Table dataSource={products} rowKey="_id">
+        <Table.Column title="Product Title" dataIndex="title" key="title" />
+        <Table.Column title="Price" dataIndex="price" key="price" />
+        <Table.Column title="Quantity" dataIndex="quantity" key="quantity" />
+        <Table.Column title="Brand" dataIndex="brand" key="brand" />
+        <Table.Column
+          title="Action"
+          key="action"
+          render={(_, record) => (
+            <Space size="middle">
+              <Button type="primary" onClick={() => showEditModal(record)}>
+                Edit <EditOutlined />
+              </Button>
               <Popconfirm
-                title="Edit this product"
-                description="Are you sure to edit this product?"
-                okText="Yes"
-                cancelText="No"
-              >
-                <Button type="primary">Edit</Button>
-              </Popconfirm>
-            </a>
-            <a>
-              <Popconfirm
-                title="Delete this product"
-                description="Are you sure to delete this product?"
+                title="Are you sure to delete this product?"
+                onConfirm={() => handleDelete(record)}
                 okText="Yes"
                 cancelText="No"
               >
@@ -49,11 +77,19 @@ function AdminGetProducts({ selectedCategory }) {
                   Delete <DeleteOutlined />
                 </Button>
               </Popconfirm>
-            </a>
-          </Space>
-        )}
-      />
-    </Table>
+            </Space>
+          )}
+        />
+      </Table>
+      {showEditProductModal && (
+        <AdminEditProduct
+          showModal={showEditProductModal}
+          setShowModal={setShowEditProductModal}
+          selectedProduct={selectedProduct}
+          fetchProducts={fetchProducts}
+        />
+      )}
+    </>
   );
 }
 
