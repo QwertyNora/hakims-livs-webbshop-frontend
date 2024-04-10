@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Button, Form, Input, InputNumber, message, Select } from "antd";
 
 const formItemLayout = {
@@ -16,7 +16,7 @@ const AddProductsForm = () => {
       const response = await fetch("http://localhost:8080/categories");
       if (response.ok) {
         const data = await response.json();
-        setCategories(data); // Assuming the API returns an array of categories
+        setCategories(data);
       } else {
         throw new Error("Failed to fetch categories");
       }
@@ -27,25 +27,29 @@ const AddProductsForm = () => {
 
   useEffect(() => {
     fetchCategories();
-  }, []); // Fetch categories on component mount
+  }, []);
 
   const handleChange = (value) => {
     setSelectedCategory(value);
   };
 
+  const formRef = useRef();
+
   const onFinish = async (values) => {
-    const { categoryName, ...otherProductData } = values; // Destructure category ID
+    const { Category, ...otherProductData } = values;
     setLoading(true);
     try {
       const response = await fetch("http://localhost:8080/products/new", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...otherProductData, category: categoryName }), // Include category ID
+        body: JSON.stringify({ ...otherProductData, category: Category }),
       });
       if (!response.ok) {
         throw new Error("Failed to add product");
       }
       message.success("Product added successfully!");
+      formRef.current.setFieldsValue({}); // Reset form fields
+      formRef.current.resetFields(); // Reset form state
     } catch (error) {
       console.error("Error adding product:", error);
       message.error("Failed to add product. Please try again.");
@@ -57,6 +61,7 @@ const AddProductsForm = () => {
   return (
     <>
       <Form
+        ref={formRef}
         {...formItemLayout}
         style={{ width: "100%", maxWidth: "600px", margin: "0 auto" }}
         onFinish={onFinish}
