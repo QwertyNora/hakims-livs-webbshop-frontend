@@ -25,6 +25,10 @@ function Home() {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+
+  const handleCategorySelect = (categoryName) => {
+    setSelectedCategory(categoryName);
+  };
   // Product MODALS END
 
   return (
@@ -76,125 +80,11 @@ function Home() {
       </div>
 
       {/* category select dropdown */}
+      <DisplayCategories onCategorySelect={handleCategorySelect} />
 
       <div className={Styles.categoriesNavContainer}>
-        <div className={Styles.Dropdown}>
-          <h2 className={Styles.categoriesHeader}>Kategorier</h2>
-          <ul>
-            <li>
-              <a
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setSelectedCategory("");
-                }}
-              >
-                Alla
-              </a>
-            </li>
-
-            <li>
-              <a
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setSelectedCategory("660d443e33d1b3eb0dab7769");
-                }}
-              >
-                Godis
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setSelectedCategory("660d4ddf597af06970c47adb");
-                }}
-              >
-                Mejeri
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setSelectedCategory("660d4e08597af06970c47adc");
-                }}
-              >
-                Kött
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setSelectedCategory("660d4e25597af06970c47add");
-                }}
-              >
-                Fisk
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setSelectedCategory("660d4e48597af06970c47ade");
-                }}
-              >
-                Bröd
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setSelectedCategory("660d4e69597af06970c47adf");
-                }}
-              >
-                Grönsaker
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setSelectedCategory("660d4e89597af06970c47ae0");
-                }}
-              >
-                Frukt
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setSelectedCategory("Kaffe");
-                }}
-              >
-                Kaffe
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setSelectedCategory("660d4ea9597af06970c47ae1");
-                }}
-              >
-                Städartiklar
-              </a>
-            </li>
-          </ul>
-        </div>
-
+        {/* Remove the hardcoded category list from here */}
+        
         <div className={Styles.ProductDisplayContainer}>
           {/* Content for product display */}
           <div className={Styles.ProductDisplay}>
@@ -206,7 +96,6 @@ function Home() {
           </div>
         </div>
       </div>
-      <DisplayCategories/>
       
     </>
   );

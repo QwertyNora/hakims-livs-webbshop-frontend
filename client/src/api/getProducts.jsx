@@ -12,10 +12,11 @@ function GetAllProducts({ selectedCategory }) {
     fetch("https://hakims-livs-webbshop-1.onrender.com/products")
       .then((response) => response.json())
       .then((data) => {
+        console.log("Sample product:", data[0]); // Log a sample product
         setAllProducts(data);
         if (selectedCategory) {
           const filtered = data.filter(
-            (product) => product.category === selectedCategory
+            (product) => product.category.id === selectedCategory // If category is an ID
           );
           setFilteredProducts(filtered);
         } else {
