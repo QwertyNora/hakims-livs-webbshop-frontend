@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Input, Card, Modal, Button, Dropdown } from "antd";
 import GetAllProducts from "../api/getProducts";
 import SearchBar from "../components/searchBar";
+import HakimLogo from "../images/HakimLogo.png";
 
 import Styles from "../styles/home.module.css";
 
@@ -38,7 +39,7 @@ function Home() {
         <ul className={Styles.SearchNav}>
           <li className={Styles.logo}>
             <a className={Styles.hakimLogo} href="/">
-              HAKIM LIVS
+              <img src={HakimLogo} className={Styles.hakimLogo} alt="" />
             </a>
           </li>
           <li>
