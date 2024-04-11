@@ -1,5 +1,5 @@
-import React from "react";
-import { Button, Modal, Form, Input, InputNumber } from "antd";
+import React, { useState, useEffect } from "react";
+import { Button, Modal, Form, Input, InputNumber, Select } from "antd";
 
 const AdminEditProduct = ({
   showModal,
@@ -9,6 +9,8 @@ const AdminEditProduct = ({
 }) => {
   const [loading, setLoading] = React.useState(false);
   const [form] = Form.useForm();
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   const handleOk = () => {
     form.submit();
@@ -19,7 +21,29 @@ const AdminEditProduct = ({
     form.resetFields();
   };
 
-  const onFinish = (values) => {
+  const fetchCategories = async () => {
+    try {
+      const response = await fetch("http://localhost:8080/categories");
+      if (response.ok) {
+        const data = await response.json();
+        setCategories(data);
+      } else {
+        throw new Error("Failed to fetch categories");
+      }
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
+  const handleChange = (value) => {
+    setSelectedCategory(value);
+  };
+
+  const onFinish = async (values) => {
     setLoading(true);
 
     if (!selectedProduct || !selectedProduct._id) {
@@ -88,7 +112,19 @@ const AdminEditProduct = ({
             { required: false, message: "Please input the product category!" },
           ]}
         >
-          <Input />
+          <Select
+            name="._"
+            defaultValue="Select Category"
+            style={{ width: "100%" }}
+            onChange={handleChange}
+          >
+            {categories.map((category) => (
+              <Select.Option key={category._id} value={category._id}>
+                {category.name}
+              </Select.Option>
+            ))}
+          </Select>
+          {/* <Input /> */}
         </Form.Item>
 
         <Form.Item
