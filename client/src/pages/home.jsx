@@ -42,7 +42,7 @@ function Home() {
             </a>
           </li>
           <li>
-            <SearchBar />
+            <SearchBar showModal={showModal} />
           </li>
           <li>
             <Link to="/login" className={Styles.login}>
