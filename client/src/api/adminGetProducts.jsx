@@ -16,6 +16,8 @@ function AdminGetProducts({ selectedCategory }) {
       .catch((error) => console.error("Error fetching data:", error));
   }, []); // Empty dependency array means this effect runs once on mount
 
+  // TEST
+
   return (
     <Table dataSource={products} rowKey="id">
       <Table.Column title="Product Title" dataIndex="title" key="title" />
