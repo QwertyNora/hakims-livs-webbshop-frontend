@@ -105,7 +105,7 @@ const AddProductsForm = () => {
           name="weight"
           rules={[{ required: true, message: "Please input!" }]}
         >
-          <Input />
+          <InputNumber style={{ width: "100%" }} />
         </Form.Item>
         <Form.Item
           label="Product Image"
