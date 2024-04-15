@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Form, Input, Table } from "antd";
+import { Form, Input, Table, Button, Space } from "antd";
+import { PlusCircleOutlined, PlusOutlined } from "@ant-design/icons";
+import AddCategoryForm from "./addCategoryForm";
 // import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 
 function AdminGetAddCategories() {
   const [categories, setCategories] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [showAddCategoryModal, setShowAddCategoryModal] = useState(false);
 
   const fetchCategories = async () => {
     try {
@@ -23,6 +27,10 @@ function AdminGetAddCategories() {
     fetchCategories();
   }, []);
 
+  const showAddModal = () => {
+    setShowAddCategoryModal(true);
+  };
+
   return (
     <>
       <div style={{ width: "100%", maxWidth: "50%", margin: "0 auto" }}>
@@ -35,23 +43,24 @@ function AdminGetAddCategories() {
           />
         </Table>
 
-        <Form style={{ width: "70%", maxWidth: "600px", margin: "0 auto" }}>
-          <h3>Add Category:</h3>
-          <Form.Item
-            label="Category Name"
-            name="name"
-            rules={[{ required: true, message: "Please input!" }]}
+        <Space size="middle">
+          <Button
+            type="primary"
+            onClick={() => {
+              showAddModal();
+            }}
           >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            label="Category Description"
-            name="description"
-            rules={[{ required: true, message: "Please input!" }]}
-          >
-            <Input.TextArea />
-          </Form.Item>
-        </Form>
+            Add Category <PlusCircleOutlined />
+          </Button>
+        </Space>
+
+        {showAddCategoryModal && (
+          <AddCategoryForm
+            showModal={showAddCategoryModal}
+            setShowModal={setShowAddCategoryModal}
+            fetchCategories={fetchCategories}
+          />
+        )}
       </div>
     </>
   );

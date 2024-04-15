@@ -124,7 +124,6 @@ const AdminEditProduct = ({
               </Select.Option>
             ))}
           </Select>
-          {/* <Input /> */}
         </Form.Item>
 
         <Form.Item
@@ -175,6 +174,3 @@ const AdminEditProduct = ({
 };
 
 export default AdminEditProduct;
-
-// AdminEditProduct
-// I model: Required men när man ska uppdatera måste det inte vara required? Hur gör man då
