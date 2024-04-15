@@ -6,6 +6,7 @@ import Checkout from "./pages/checkout";
 import Admin from "./adminPages/adminStartPage";
 import AdminAddProduct from "./adminPages/adminAddProduct";
 import "./App.css";
+import AdminCategories from "./adminPages/adminCategories";
 
 function App() {
   return (
