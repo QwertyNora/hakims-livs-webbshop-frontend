@@ -27,7 +27,7 @@ function AddCategoryForm({ showModal, setShowModal, fetchCategories }) {
     fetch("http://localhost:8080/categories/new", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(values), // Send values directly without wrapping
+      body: JSON.stringify(values),
     })
       .then((response) => {
         if (!response.ok) {
@@ -37,9 +37,9 @@ function AddCategoryForm({ showModal, setShowModal, fetchCategories }) {
       })
       .then((data) => {
         console.log("Success:", data);
-        setShowModal(false); // Close modal on success
-        fetchCategories(); // Fetch categories again
-        form.resetFields(); // Reset form fields after successful submit
+        setShowModal(false);
+        fetchCategories();
+        form.resetFields();
       })
       .catch((error) => {
         console.error("Error:", error);
