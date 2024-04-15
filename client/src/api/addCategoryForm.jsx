@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Input, Button, Modal } from "antd";
+import { Form, Input, Button, Modal, message } from "antd";
 
 function AddCategoryForm({ showModal, setShowModal, fetchCategories }) {
   const [confirmLoading, setConfirmLoading] = useState(false);
@@ -36,7 +36,7 @@ function AddCategoryForm({ showModal, setShowModal, fetchCategories }) {
         return response.json();
       })
       .then((data) => {
-        console.log("Success:", data);
+        message.success("Category added successfully");
         setShowModal(false);
         fetchCategories();
         form.resetFields();
