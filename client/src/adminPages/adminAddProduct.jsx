@@ -13,7 +13,8 @@ const AdminAddProducts = () => {
   const items = [
     { key: 1, label: "Storage", path: "/admin" },
     { key: 2, label: "Add products", path: "/admin/add/products" },
-    { key: 3, label: "Order Products" },
+    { key: 3, label: "Orders", path: "/admin/orders" },
+    { key: 4, label: "Categories", path: "/admin/categories" },
   ];
 
   return (
