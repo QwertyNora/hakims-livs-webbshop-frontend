@@ -2,6 +2,8 @@ import React from "react";
 import { Breadcrumb, Layout, Menu, theme, Row, Col } from "antd";
 import Cart from "../components/cart";
 import CartItems from "../components/cartItems";
+import OrderDetails from "../components/orderDetails";
+import CreateOrder from "../components/createOrder";
 
 const { Header, Content, Footer } = Layout;
 const items = new Array(15).fill(null).map((_, index) => ({
@@ -62,6 +64,7 @@ function Checkout() {
             >
               <h2>Your cart</h2>
               <CartItems />
+              <OrderDetails />
             </div>
           </Content>
         </Col>
@@ -83,7 +86,7 @@ function Checkout() {
               borderRadius: borderRadiusLG,
             }}
           >
-            Order
+            <CreateOrder />
           </div>
         </Col>
       </Row>
