@@ -9,7 +9,6 @@ function CartItems({ productsInCart }) {
   useEffect(() => {
     const items = JSON.parse(localStorage.getItem("productsInCart"));
     if (items) {
-      // Assume unitPrice needs to be added to the items the first time
       const updatedItems = items.map((item) => ({
         ...item,
         unitPrice: item.price / item.quantity, // Calculate unit price if not present
@@ -26,7 +25,7 @@ function CartItems({ productsInCart }) {
           return {
             ...item,
             quantity,
-            price: item.unitPrice * quantity, // Recalculate the total price based on new quantity
+            price: item.unitPrice * quantity,
           };
         }
         return item;
@@ -74,7 +73,7 @@ function CartItems({ productsInCart }) {
       title: "Price",
       dataIndex: "price",
       key: "price",
-      render: (text, record) => `${record.price.toFixed(2)} Kr`, // Show the recalculated price
+      render: (text, record) => `${record.price.toFixed(2)} Kr`,
     },
     {
       title: "",
@@ -91,7 +90,7 @@ function CartItems({ productsInCart }) {
 
   return (
     <>
-      <Table dataSource={cartItems} columns={columns}></Table>
+      <Table dataSource={cartItems} columns={columns} pagination={false} />
     </>
   );
 }
