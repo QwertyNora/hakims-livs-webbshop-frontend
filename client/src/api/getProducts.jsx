@@ -10,7 +10,7 @@ function GetAllProducts({ selectedCategory, addToCart }) {
   const [productsInCart, setProductsInCart] = useState([]);
 
   useEffect(() => {
-    fetch("https://hakims-livs-webbshop-1.onrender.com/products")
+    fetch("http://localhost:8080/products/")
       .then((response) => response.json())
       .then((data) => {
         setAllProducts(data);
@@ -58,12 +58,14 @@ function GetAllProducts({ selectedCategory, addToCart }) {
           hoverable
           style={{ width: 240 }}
           cover={
-            <img
-              className={Styles.productImage}
-              alt="example"
-              src={product.imageURL}
-              onClick={() => showModal(index)}
-            />
+            <div className={Styles.imageDiv}>
+              <img
+                className={Styles.productImage}
+                alt="example"
+                src={product.imageURL}
+                onClick={() => showModal(index)}
+              />
+            </div>
           }
         >
           <Card.Meta title={product.title} />
@@ -92,11 +94,14 @@ function GetAllProducts({ selectedCategory, addToCart }) {
       >
         {selectedProductIndex !== null && (
           <>
-            <img
-              className={Styles.modalProductImg}
-              src={productsToDisplay[selectedProductIndex].imageURL}
-              alt=""
-            />
+            <div className={Styles.imageDiv}>
+              <img
+                className={Styles.modalProductImg}
+                src={productsToDisplay[selectedProductIndex].imageURL}
+                alt=""
+              />
+            </div>
+
             <h2 className={Styles.modalPrice}>
               {productsToDisplay[selectedProductIndex].price}kr
             </h2>

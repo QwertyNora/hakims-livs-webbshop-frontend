@@ -6,15 +6,23 @@
 
 img {
   padding-top: 20px;
+
+}
+
+.productImage {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
 }
 
 .productCard {
-  margin: 1rem;
+  margin: 2rem;
 }
 
 .modalProductImg {
   width: 300px;
 }
+
 .modalPrice {
   padding-right: 20px;
 }
