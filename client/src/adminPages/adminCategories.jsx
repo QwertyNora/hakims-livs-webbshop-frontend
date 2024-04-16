@@ -1,11 +1,14 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import AddProductsForm from "../api/addProductsForm";
+// App.js
+// Tabellbas med tags etc
 
+import React from "react";
 import { Breadcrumb, Layout, Menu, theme } from "antd";
+import { Link } from "react-router-dom";
+import AdminGetAddCategories from "../api/adminGetAddCategories";
+
 const { Header, Content, Footer } = Layout;
 
-const AdminAddProducts = () => {
+function AdminCategories() {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
@@ -34,9 +37,9 @@ const AdminAddProducts = () => {
           ))}
         </Menu>
       </Header>
-      <Content style={{ padding: "0 68px" }}>
-        <Breadcrumb style={{ margin: "20px 0" }}>
-          <Breadcrumb.Item>Add product</Breadcrumb.Item>
+      <Content style={{ padding: "0 48px" }}>
+        <Breadcrumb style={{ margin: "16px 0" }}>
+          <Breadcrumb.Item>Admin panel</Breadcrumb.Item>
         </Breadcrumb>
         <div
           style={{
@@ -44,13 +47,11 @@ const AdminAddProducts = () => {
             minHeight: 280,
             padding: 24,
             borderRadius: borderRadiusLG,
-            display: "flex",
-            justifyContent: "center",
           }}
         >
-          {/* Content STARTS HERE  */}
-
-          <AddProductsForm />
+          {/* Content starts here  */}
+          Categories
+          <AdminGetAddCategories />
         </div>
       </Content>
       <Footer style={{ textAlign: "center" }}>
@@ -58,6 +59,6 @@ const AdminAddProducts = () => {
       </Footer>
     </Layout>
   );
-};
+}
 
-export default AdminAddProducts;
+export default AdminCategories;

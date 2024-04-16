@@ -1,0 +1,36 @@
+.cartImg {
+  width: 200px;
+}
+.productTitle {
+  font-size: 1rem;
+}
+
+.productList {
+  list-style: none;
+  padding: 0;
+}
+
+.productItem {
+  border-bottom: 1px solid #ddd;
+  padding: 10px;
+}
+
+.removeBtn {
+  margin-right: 20px;
+  background-color: white;
+}
+
+.addBtn {
+  background-color: white;
+  margin-right: 20px;
+}
+
+.decrementBtn {
+  background-color: white;
+  /* margin-right: 20px; */
+  /* color: white; */
+}
+
+.productQuantity {
+  margin: 1rem;
+}

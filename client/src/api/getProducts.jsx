@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Card, Modal, Button } from "antd";
+import { Card, Modal, message } from "antd";
 import Styles from "../styles/getAllProducts.module.css";
 
-function GetAllProducts({ selectedCategory }) {
+function GetAllProducts({ selectedCategory, addToCart }) {
   const [allProducts, setAllProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [productsInCart, setProductsInCart] = useState([]);
 
   useEffect(() => {
     fetch("https://hakims-livs-webbshop-1.onrender.com/products")
@@ -40,6 +41,11 @@ function GetAllProducts({ selectedCategory }) {
 
   const productsToDisplay = selectedCategory ? filteredProducts : allProducts;
 
+  const handleAddToCart = (product) => {
+    addToCart(product);
+    message.success("Added product to cart");
+  };
+
   return (
     <div className={Styles.allProductsContainer}>
       {productsToDisplay.map((product) => (
@@ -59,7 +65,12 @@ function GetAllProducts({ selectedCategory }) {
         >
           <Card.Meta title={product.title} />
           <p>{product.price}kr</p>
-          <button className={Styles.productBtn}>KÖP</button>
+          <button
+            className={Styles.productBtn}
+            onClick={() => handleAddToCart(product)}
+          >
+            KÖP
+          </button>
         </Card>
       ))}
       <Modal
