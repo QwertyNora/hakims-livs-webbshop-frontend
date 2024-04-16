@@ -37,6 +37,8 @@ function CartItems({ productsInCart }) {
     setCartItems((prevItems) => {
       const filteredItems = prevItems.filter((item) => item._id !== id);
       localStorage.setItem("productsInCart", JSON.stringify(filteredItems));
+      // Custom event to notify other components of the update
+      window.dispatchEvent(new CustomEvent("localStorageUpdated"));
       return filteredItems;
     });
   };
