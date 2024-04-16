@@ -103,7 +103,6 @@ function Home() {
               <FiShoppingCart size={30} />
             </button>
             {cartVisibility && (
-              // In the Home component, when rendering the Cart component
               <Cart
                 visibility={cartVisibility}
                 products={productsInCart}

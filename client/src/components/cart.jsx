@@ -54,6 +54,8 @@ const Cart = ({
                   <br />
                   <span className={Styles.productTitle}>{product.title}</span>
                   <br />
+                  <span>{product.price} Kr</span>
+                  <br />
                   <button
                     className={Styles.removeBtn}
                     onClick={() => removeProduct(index)}
@@ -78,7 +80,7 @@ const Cart = ({
                 </li>
               ))}
             </ul>
-            <p>Total Price: {total} kr</p>
+            <h2>Total Price: {total} kr</h2>
           </div>
         )}
       </Drawer>
