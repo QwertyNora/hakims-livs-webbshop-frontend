@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { AutoComplete, Modal, Button, message } from "antd";
 import Styles from "../styles/home.module.css";
 
-function SearchBar() {
+function SearchBar({ addToCart }) {
   const [input, setInput] = useState("");
   const [options, setOptions] = useState([]);
   const [allProducts, setAllProducts] = useState([]);
@@ -73,10 +73,12 @@ function SearchBar() {
     setSelectedProduct(null);
   };
 
-  const addToCart = () => {
-    setCart([...cart, selectedProduct]);
-    message.success("Added product to cart");
-    closeModal();
+  const handleAddToCart = () => {
+    if (selectedProduct) {
+      addToCart(selectedProduct);
+      message.success("Added product to cart");
+      closeModal();
+    }
   };
 
   return (
@@ -99,7 +101,7 @@ function SearchBar() {
         visible={modalVisible}
         onCancel={closeModal}
         footer={[
-          <Button key="addToCart" type="primary" onClick={addToCart}>
+          <Button key="addToCart" type="primary" onClick={handleAddToCart}>
             Add to Cart
           </Button>,
         ]}
@@ -111,7 +113,6 @@ function SearchBar() {
               alt={selectedProduct.title}
               style={{ maxWidth: "100%" }}
             />
-
             <h2>{selectedProduct.price}Kr</h2>
             <p>{selectedProduct.description}</p>
             <p>{selectedProduct.brand}</p>
