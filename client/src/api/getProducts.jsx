@@ -6,7 +6,7 @@ function GetAllProducts({ selectedCategory, addToCart }) {
   const [allProducts, setAllProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [selectedProductIndex, setSelectedProductIndex] = useState(null);
   const [productsInCart, setProductsInCart] = useState([]);
 
   useEffect(() => {
@@ -26,8 +26,8 @@ function GetAllProducts({ selectedCategory, addToCart }) {
       .catch((error) => console.error("Error fetching data:", error));
   }, [selectedCategory]);
 
-  const showModal = (product) => {
-    setSelectedProduct(product);
+  const showModal = (index) => {
+    setSelectedProductIndex(index);
     setIsModalOpen(true);
   };
 
@@ -41,14 +41,17 @@ function GetAllProducts({ selectedCategory, addToCart }) {
 
   const productsToDisplay = selectedCategory ? filteredProducts : allProducts;
 
-  const handleAddToCart = (product) => {
-    addToCart(product);
-    message.success("Added product to cart");
+  const handleAddToCart = () => {
+    // Using selectedProductIndex to add to cart
+    if (selectedProductIndex !== null) {
+      addToCart(productsToDisplay[selectedProductIndex]);
+      message.success("Added product to cart");
+    }
   };
 
   return (
     <div className={Styles.allProductsContainer}>
-      {productsToDisplay.map((product) => (
+      {productsToDisplay.map((product, index) => (
         <Card
           className={Styles.productCard}
           key={product._id}
@@ -59,7 +62,7 @@ function GetAllProducts({ selectedCategory, addToCart }) {
               className={Styles.productImage}
               alt="example"
               src={product.imageURL}
-              onClick={() => showModal(product)}
+              onClick={() => showModal(index)}
             />
           }
         >
@@ -67,39 +70,47 @@ function GetAllProducts({ selectedCategory, addToCart }) {
           <p>{product.price}kr</p>
           <button
             className={Styles.productBtn}
-            onClick={() => handleAddToCart(product)}
+            onClick={() => {
+              addToCart(product);
+              message.success("Added product to cart");
+            }}
           >
             KÖP
           </button>
         </Card>
       ))}
       <Modal
-        title={selectedProduct && selectedProduct.title}
+        title={
+          selectedProductIndex !== null &&
+          productsToDisplay[selectedProductIndex].title
+        }
         visible={isModalOpen}
-        onOk={handleOk}
+        onOk={handleAddToCart}
         onCancel={handleCancel}
         okText="Lägg till i varukorg"
         cancelText="Stäng"
       >
-        {selectedProduct && (
-          <img
-            className={Styles.modalProductImg}
-            src={selectedProduct.imageURL}
-            alt=""
-          />
+        {selectedProductIndex !== null && (
+          <>
+            <img
+              className={Styles.modalProductImg}
+              src={productsToDisplay[selectedProductIndex].imageURL}
+              alt=""
+            />
+            <h2 className={Styles.modalPrice}>
+              {productsToDisplay[selectedProductIndex].price}kr
+            </h2>
+            <p className={Styles.modalDesc}>
+              {productsToDisplay[selectedProductIndex].brand}
+            </p>
+            <p className={Styles.modalDesc}>
+              {productsToDisplay[selectedProductIndex].weight}g
+            </p>
+            <p className={Styles.modalDesc}>
+              {productsToDisplay[selectedProductIndex].description}
+            </p>
+          </>
         )}
-        <h2 className={Styles.modalPrice}>
-          {selectedProduct && selectedProduct.price}kr
-        </h2>
-        <p className={Styles.modalDesc}>
-          {selectedProduct && selectedProduct.brand}
-        </p>
-        <p className={Styles.modalDesc}>
-          {selectedProduct && selectedProduct.weight}g
-        </p>
-        <p className={Styles.modalDesc}>
-          {selectedProduct && selectedProduct.description}
-        </p>
       </Modal>
     </div>
   );
