@@ -53,6 +53,19 @@ function AdminOrders() {
     setSelectedCustomerInfo({});
   };
 
+  const getStatusTagColor = (status) => {
+    switch (status) {
+      case "Ordered":
+        return "red";
+      case "Delivered":
+        return "green";
+      case "Out for delivery":
+        return "blue";
+      default:
+        return "default";
+    }
+  };
+
   return (
     <Layout>
       <Header style={{ display: "flex", alignItems: "center" }}>
@@ -84,7 +97,14 @@ function AdminOrders() {
         >
           <Table dataSource={allOrders}>
             <Column title="Order ID" dataIndex="_id" key="_id" />
-            <Column title="Status" dataIndex="status" key="status" />
+            <Column
+              title="Status"
+              dataIndex="status"
+              key="status"
+              render={(status) => (
+                <Tag color={getStatusTagColor(status)}>{status}</Tag>
+              )}
+            />
             <Column
               title="Picking List"
               dataIndex="products"
@@ -97,10 +117,9 @@ function AdminOrders() {
             />
             <Column
               title="Customer Info"
-              dataIndex="customerInfo"
-              key="customerInfo"
-              render={(customerInfo) => (
-                <a onClick={() => handleCustomerInfoClick(customerInfo)}>
+              key="customer"
+              render={(text, info) => (
+                <a onClick={() => handleCustomerInfoClick(info.customer)}>
                   View Customer Info
                 </a>
               )}
@@ -135,7 +154,10 @@ function AdminOrders() {
           {selectedCustomerInfo && (
             <>
               <p>Name: {selectedCustomerInfo.name}</p>
+              <p>Email: {selectedCustomerInfo.email}</p>
               <p>Phone Number: {selectedCustomerInfo.phoneNumber}</p>
+              <p>Address: {selectedCustomerInfo.address}</p>
+              <p>Invoice Address: {selectedCustomerInfo.invoiceAddress}</p>
             </>
           )}
         </Modal>
