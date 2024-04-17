@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { AutoComplete, Modal, Button, message } from "antd";
 import Styles from "../styles/home.module.css";
+import { SearchOutlined } from "@ant-design/icons";
 
 function SearchBar({ addToCart }) {
   const [input, setInput] = useState("");
@@ -95,6 +96,7 @@ function SearchBar({ addToCart }) {
             value={input}
           />
         </li>
+        <SearchOutlined />
       </ul>
       <Modal
         title={selectedProduct ? selectedProduct.title : ""}
