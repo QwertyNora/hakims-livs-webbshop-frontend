@@ -1,7 +1,19 @@
-import React from "react";
-import { Breadcrumb, Layout, Menu, theme, Row, Col } from "antd";
-import Cart from "../components/cart";
+import React, { useState, Link } from "react";
+import {
+  message,
+  Breadcrumb,
+  Layout,
+  Menu,
+  theme,
+  Row,
+  Col,
+  Typography,
+} from "antd";
 import CartItems from "../components/cartItems";
+import CreateOrder from "../components/createOrder";
+import CustomerForm from "../components/customerForm";
+import Styles from "../styles/customerForm.module.css";
+const { Title, Text } = Typography;
 
 const { Header, Content, Footer } = Layout;
 const items = new Array(15).fill(null).map((_, index) => ({
@@ -10,9 +22,27 @@ const items = new Array(15).fill(null).map((_, index) => ({
 }));
 
 function Checkout() {
+  const [customerDetails, setCustomerDetails] = useState({});
+  const [cartItems, setCartItems] = useState([]);
+
+  const breadcrumbItems = [
+    {
+      label: <Link to="/">Home</Link>,
+    },
+    {
+      label: "Checkout",
+    },
+  ];
+
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+
+  const handleSaveCustomerDetails = (details) => {
+    setCustomerDetails(details);
+    message.success("Details saved successfully!");
+  };
+
   return (
     <Layout>
       <Header
@@ -60,8 +90,15 @@ function Checkout() {
                 borderRadius: borderRadiusLG,
               }}
             >
-              <h2>Your cart</h2>
+              <Title level={3} style={{ textAlign: "left" }}>
+                Your Cart
+              </Title>
               <CartItems />
+              <div className={Styles.container}>
+                <CustomerForm
+                  onSaveCustomerDetails={handleSaveCustomerDetails}
+                />
+              </div>
             </div>
           </Content>
         </Col>
@@ -81,9 +118,14 @@ function Checkout() {
               minHeight: 280,
               padding: 24,
               borderRadius: borderRadiusLG,
+              maxWidth: 700,
             }}
           >
-            Order
+            <CreateOrder
+              customerDetails={customerDetails}
+              cartItems={cartItems}
+              setCartItems={setCartItems}
+            />
           </div>
         </Col>
       </Row>

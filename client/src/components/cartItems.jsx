@@ -11,7 +11,7 @@ function CartItems({ productsInCart }) {
     if (items) {
       const updatedItems = items.map((item) => ({
         ...item,
-        unitPrice: item.price / item.quantity, // Calculate unit price if not present
+        unitPrice: item.price / item.quantity,
       }));
       setCartItems(updatedItems);
       localStorage.setItem("productsInCart", JSON.stringify(updatedItems));
@@ -22,15 +22,13 @@ function CartItems({ productsInCart }) {
     setCartItems((prevItems) => {
       const updatedItems = prevItems.map((item) => {
         if (item._id === id) {
-          return {
-            ...item,
-            quantity,
-            price: item.unitPrice * quantity,
-          };
+          return { ...item, quantity, price: item.unitPrice * quantity };
         }
         return item;
       });
       localStorage.setItem("productsInCart", JSON.stringify(updatedItems));
+      // Custom event to notify other components of the update
+      window.dispatchEvent(new CustomEvent("localStorageUpdated"));
       return updatedItems;
     });
   };
@@ -39,6 +37,8 @@ function CartItems({ productsInCart }) {
     setCartItems((prevItems) => {
       const filteredItems = prevItems.filter((item) => item._id !== id);
       localStorage.setItem("productsInCart", JSON.stringify(filteredItems));
+      // Custom event to notify other components of the update
+      window.dispatchEvent(new CustomEvent("localStorageUpdated"));
       return filteredItems;
     });
   };
