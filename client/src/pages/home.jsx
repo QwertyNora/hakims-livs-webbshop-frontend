@@ -91,7 +91,7 @@ function Home() {
             </a>
           </li>
           <li>
-            <SearchBar showModal={showModal} />
+            <SearchBar showModal={showModal} addToCart={addToCart} />
           </li>
           <li>
             <Link to="/login" className={Styles.login}>

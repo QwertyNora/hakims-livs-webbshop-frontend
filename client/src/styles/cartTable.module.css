@@ -1,0 +1,8 @@
+.productImage {
+    width: 100px;
+    /* Adjust width as needed*/
+    height: 100px;
+    /* Adjust height as needed */
+    object-fit: contain;
+    /*This property ensures the image covers the set area without losing its aspect ratio*/
+}
