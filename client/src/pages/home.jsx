@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Cart from "../components/cart";
 import { Link } from "react-router-dom";
-import { Button, Space } from "antd";
+import { Button, Space, ConfigProvider } from "antd";
 import { RxAvatar } from "react-icons/rx";
 import { FiShoppingCart } from "react-icons/fi";
 import GetAllProducts from "../api/getProducts";
@@ -92,22 +92,34 @@ function Home() {
             <SearchBar showModal={showModal} addToCart={addToCart} />
           </div>
           <div className={Styles.LoginCartContainer}>
-            <Space>
-              <Link to="/login">
-                <Button className={Styles.loginBtn}>
-                  <RxAvatar size={25} style={{ marginRight: "8" }} />
-                  Log In
+            <ConfigProvider
+              theme={{
+                token: {
+                  // Seed Token
+                  colorPrimary: "#82b874",
+
+                  // Alias Token
+                  colorBgContainer: "#f6ffed",
+                },
+              }}
+            >
+              <Space>
+                <Link to="/login">
+                  <Button className={Styles.loginBtn}>
+                    <RxAvatar size={25} style={{ marginRight: "8" }} />
+                    Log In
+                  </Button>
+                </Link>
+                <Button
+                  onClick={handleCartToggle}
+                  type="primary"
+                  className={Styles.loginBtn}
+                >
+                  <FiShoppingCart size={23} style={{ marginRight: "8" }} />
+                  Cart
                 </Button>
-              </Link>
-              <Button
-                onClick={handleCartToggle}
-                type="primary"
-                className={Styles.loginBtn}
-              >
-                <FiShoppingCart size={23} style={{ marginRight: "8" }} />
-                Cart
-              </Button>
-            </Space>
+              </Space>
+            </ConfigProvider>
           </div>
           <div>
             {cartVisibility && (
