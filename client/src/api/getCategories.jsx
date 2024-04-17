@@ -23,7 +23,6 @@ function DisplayCategories({ onCategorySelect }) {
       <h2 className={Styles.categoriesHeader}>Categories</h2>
       <ul className={Styles.categoryList}>
         <li>
-          {/* Change the button to a link */}
           <a
             href="#"
             className={Styles.categoryLink}
@@ -34,7 +33,6 @@ function DisplayCategories({ onCategorySelect }) {
         </li>
         {categories.map((category) => (
           <li key={category._id}>
-            {/* Change the button to a link */}
             <a
               href="#"
               className={Styles.categoryLink}
