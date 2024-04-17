@@ -1,28 +1,16 @@
-import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Cart from "../components/cart";
-import {
-  Input,
-  Card,
-  Modal,
-  Button,
-  Dropdown,
-  ConfigProvider,
-  Space,
-} from "antd";
+import { Link } from "react-router-dom";
+import { Button, Space } from "antd";
 import { RxAvatar } from "react-icons/rx";
 import { FiShoppingCart } from "react-icons/fi";
-
 import GetAllProducts from "../api/getProducts";
 import SearchBar from "../components/searchBar";
 import HakimLogo from "../images/HakimLogo.png";
-
+import DisplayCategories from "../api/getCategories";
 import Styles from "../styles/home.module.css";
 
-const { Meta } = Card;
-
 function Home() {
-  // Product MODALS
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [cartVisibility, setCartVisibility] = useState(false);
@@ -81,7 +69,6 @@ function Home() {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-  // Product MODALS END
 
   return (
     <>
@@ -90,7 +77,6 @@ function Home() {
         <a className={Styles.topAdLink}>Fri frakt på ditt första köp!</a>
       </div>
 
-      {/* Search nav section */}
       <div className={Styles.heroNavContainer}>
         <div className={Styles.logo}>
           <a href="/">
@@ -106,34 +92,22 @@ function Home() {
             <SearchBar showModal={showModal} addToCart={addToCart} />
           </div>
           <div className={Styles.LoginCartContainer}>
-            <ConfigProvider
-              theme={{
-                token: {
-                  // Seed Token
-                  colorPrimary: "#82b874",
-
-                  // Alias Token
-                  colorBgContainer: "#f6ffed",
-                },
-              }}
-            >
-              <Space>
-                <Link to="/login">
-                  <Button className={Styles.loginBtn}>
-                    <RxAvatar size={25} style={{ marginRight: "8" }} />
-                    Log In
-                  </Button>
-                </Link>
-                <Button
-                  onClick={handleCartToggle}
-                  type="primary"
-                  className={Styles.loginBtn}
-                >
-                  <FiShoppingCart size={23} style={{ marginRight: "8" }} />
-                  Cart
+            <Space>
+              <Link to="/login">
+                <Button className={Styles.loginBtn}>
+                  <RxAvatar size={25} style={{ marginRight: "8" }} />
+                  Log In
                 </Button>
-              </Space>
-            </ConfigProvider>
+              </Link>
+              <Button
+                onClick={handleCartToggle}
+                type="primary"
+                className={Styles.loginBtn}
+              >
+                <FiShoppingCart size={23} style={{ marginRight: "8" }} />
+                Cart
+              </Button>
+            </Space>
           </div>
           <div>
             {cartVisibility && (
@@ -157,137 +131,15 @@ function Home() {
         </h2>
       </div>
 
-      {/* category select dropdown */}
-
       <div className={Styles.categoriesNavContainer}>
-        <div className={Styles.Dropdown}>
-          <h2 className={Styles.categoriesHeader}>Kategorier</h2>
-          <ul>
-            <li>
-              <a
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setSelectedCategory("");
-                }}
-              >
-                Alla
-              </a>
-            </li>
-
-            <li>
-              <a
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setSelectedCategory("660d443e33d1b3eb0dab7769");
-                }}
-              >
-                Godis
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setSelectedCategory("660d4ddf597af06970c47adb");
-                }}
-              >
-                Mejeri
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setSelectedCategory("660d4e08597af06970c47adc");
-                }}
-              >
-                Kött
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setSelectedCategory("660d4e25597af06970c47add");
-                }}
-              >
-                Fisk
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setSelectedCategory("660d4e48597af06970c47ade");
-                }}
-              >
-                Bröd
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setSelectedCategory("660d4e69597af06970c47adf");
-                }}
-              >
-                Grönsaker
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setSelectedCategory("660d4e89597af06970c47ae0");
-                }}
-              >
-                Frukt
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setSelectedCategory("Kaffe");
-                }}
-              >
-                Kaffe
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setSelectedCategory("660d4ea9597af06970c47ae1");
-                }}
-              >
-                Städartiklar
-              </a>
-            </li>
-          </ul>
-        </div>
+        <DisplayCategories onCategorySelect={setSelectedCategory} />
 
         <div className={Styles.ProductDisplayContainer}>
-          {/* Content for product display */}
           <div className={Styles.ProductDisplay}>
-            <ul className={Styles.productCards}>
-              <li>
-                <GetAllProducts
-                  selectedCategory={selectedCategory}
-                  addToCart={addToCart}
-                />
-              </li>
-            </ul>
+            <GetAllProducts
+              selectedCategory={selectedCategory}
+              addToCart={addToCart}
+            />
           </div>
         </div>
       </div>
