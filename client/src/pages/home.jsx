@@ -1,7 +1,15 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Cart from "../components/cart";
-import { Input, Card, Modal, Button, Dropdown } from "antd";
+import {
+  Input,
+  Card,
+  Modal,
+  Button,
+  Dropdown,
+  ConfigProvider,
+  Space,
+} from "antd";
 import { RxAvatar } from "react-icons/rx";
 import { FiShoppingCart } from "react-icons/fi";
 
@@ -84,24 +92,50 @@ function Home() {
 
       {/* Search nav section */}
       <div className={Styles.heroNavContainer}>
-        <ul className={Styles.SearchNav}>
-          <li className={Styles.logo}>
-            <a className={Styles.hakimLogo} href="/">
-              <img src={HakimLogo} className={Styles.hakimLogo} alt="" />
-            </a>
-          </li>
-          <li>
+        <div className={Styles.logo}>
+          <a href="/">
+            <img
+              src={HakimLogo}
+              alt="Hakim Logo"
+              className={Styles.hakimLogo}
+            />
+          </a>
+        </div>
+        <div className={Styles.SearchNav}>
+          <div>
             <SearchBar showModal={showModal} addToCart={addToCart} />
-          </li>
-          <li>
-            <Link to="/login" className={Styles.login}>
-              <RxAvatar size={30} />{" "}
-            </Link>
-          </li>
-          <li>
-            <button onClick={handleCartToggle}>
-              <FiShoppingCart size={30} />
-            </button>
+          </div>
+          <div className={Styles.LoginCartContainer}>
+            <ConfigProvider
+              theme={{
+                token: {
+                  // Seed Token
+                  colorPrimary: "#82b874",
+
+                  // Alias Token
+                  colorBgContainer: "#f6ffed",
+                },
+              }}
+            >
+              <Space>
+                <Link to="/login">
+                  <Button className={Styles.loginBtn}>
+                    <RxAvatar size={25} style={{ marginRight: "8" }} />
+                    Log In
+                  </Button>
+                </Link>
+                <Button
+                  onClick={handleCartToggle}
+                  type="primary"
+                  className={Styles.loginBtn}
+                >
+                  <FiShoppingCart size={23} style={{ marginRight: "8" }} />
+                  Cart
+                </Button>
+              </Space>
+            </ConfigProvider>
+          </div>
+          <div>
             {cartVisibility && (
               <Cart
                 visibility={cartVisibility}
@@ -111,8 +145,8 @@ function Home() {
                 updateQuantity={updateQuantity}
               />
             )}
-          </li>
-        </ul>
+          </div>
+        </div>
       </div>
 
       {/* HERO HEADER  */}
