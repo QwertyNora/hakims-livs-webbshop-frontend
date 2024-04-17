@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Cart from "../components/cart";
 import { Link } from "react-router-dom";
-import { Button, Space } from "antd";
+import { Button, Space, ConfigProvider } from "antd";
 import { RxAvatar } from "react-icons/rx";
 import { FiShoppingCart } from "react-icons/fi";
 import GetAllProducts from "../api/getProducts";
