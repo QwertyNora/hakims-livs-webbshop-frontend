@@ -1,38 +1,18 @@
-import React, { useState, Link } from "react";
-import {
-  message,
-  Breadcrumb,
-  Layout,
-  Menu,
-  theme,
-  Row,
-  Col,
-  Typography,
-} from "antd";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { message, Breadcrumb, Layout, Row, Col, Typography, theme } from "antd";
 import CartItems from "../components/cartItems";
 import CreateOrder from "../components/createOrder";
 import CustomerForm from "../components/customerForm";
 import Styles from "../styles/customerForm.module.css";
-const { Title, Text } = Typography;
+
+const { Title } = Typography;
 
 const { Header, Content, Footer } = Layout;
-const items = new Array(15).fill(null).map((_, index) => ({
-  key: index + 1,
-  label: `nav ${index + 1}`,
-}));
 
 function Checkout() {
   const [customerDetails, setCustomerDetails] = useState({});
   const [cartItems, setCartItems] = useState([]);
-
-  const breadcrumbItems = [
-    {
-      label: <Link to="/">Home</Link>,
-    },
-    {
-      label: "Checkout",
-    },
-  ];
 
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -58,7 +38,9 @@ function Checkout() {
           margin: "16px 0",
         }}
       >
-        <Breadcrumb.Item>Home</Breadcrumb.Item>
+        <Breadcrumb.Item>
+          <Link to="/">Home</Link>
+        </Breadcrumb.Item>
         <Breadcrumb.Item>Checkout</Breadcrumb.Item>
       </Breadcrumb>
       <Row
