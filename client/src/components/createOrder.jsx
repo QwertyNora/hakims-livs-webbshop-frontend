@@ -66,11 +66,14 @@ function CreateOrder({ customerDetails, cartItems, setCartItems }) {
     };
 
     try {
-      const response = await fetch("http://localhost:8080/orders/create", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(orderData),
-      });
+      const response = await fetch(
+        process.env.REACT_APP_BACKEND_URL + "/orders/create",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(orderData),
+        }
+      );
       const result = await response.json();
       setOrderDetails(result); // Save order details to state
       setIsModalVisible(true); // Show the modal on successful order placement

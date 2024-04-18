@@ -12,7 +12,7 @@ function AdminGetProducts({ selectedCategory }) {
   const [open, setOpen] = useState(false);
 
   const fetchProducts = () => {
-    fetch("https://hakims-livs-webbshop-1.onrender.com/products")
+    fetch(process.env.REACT_APP_BACKEND_URL + "/products")
       .then((response) => response.json())
       .then((data) => setProducts(data))
       .catch((error) => console.error("Error fetching data:", error));
@@ -28,7 +28,7 @@ function AdminGetProducts({ selectedCategory }) {
   };
 
   const deleteProduct = (id) => {
-    fetch(`http://localhost:8080/products/${id}`, {
+    fetch(process.env.REACT_APP_BACKEND_URL + `/${id}`, {
       method: "DELETE",
     })
       .then((response) => {
