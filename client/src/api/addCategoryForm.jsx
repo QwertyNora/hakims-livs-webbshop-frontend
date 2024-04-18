@@ -24,7 +24,7 @@ function AddCategoryForm({ showModal, setShowModal, fetchCategories }) {
 
   const onFinish = async (values) => {
     setConfirmLoading(true);
-    fetch("http://localhost:8080/categories/new", {
+    fetch(process.env.REACT_APP_BACKEND_URL + "/categories/new", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(values),

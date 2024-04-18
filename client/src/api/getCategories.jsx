@@ -5,7 +5,7 @@ function DisplayCategories({ onCategorySelect }) {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8080/categories")
+    fetch(process.env.REACT_APP_BACKEND_URL + "/categories")
       .then((response) => response.json())
       .then((data) => {
         setCategories(data);

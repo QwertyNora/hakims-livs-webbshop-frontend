@@ -10,7 +10,7 @@ function GetAllProducts({ selectedCategory, addToCart }) {
   const [productsInCart, setProductsInCart] = useState([]);
 
   useEffect(() => {
-    fetch("https://hakims-livs-webbshop-1.onrender.com/products")
+    fetch(process.env.REACT_APP_BACKEND_URL + "/products")
       .then((response) => response.json())
       .then((data) => {
         setAllProducts(data);

@@ -23,7 +23,9 @@ const AdminEditProduct = ({
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch("http://localhost:8080/categories");
+      const response = await fetch(
+        process.env.REACT_APP_BACKEND_URL + "/categories"
+      );
       if (response.ok) {
         const data = await response.json();
         setCategories(data);
@@ -55,7 +57,7 @@ const AdminEditProduct = ({
     console.log("Selected product ID:", selectedProduct._id);
     const updatedProduct = { ...values };
 
-    fetch(`http://localhost:8080/products/${selectedProduct._id}`, {
+    fetch(process.env.REACT_APP_BACKEND_URL + `/${selectedProduct._id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(updatedProduct),
