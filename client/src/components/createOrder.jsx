@@ -74,6 +74,8 @@ function CreateOrder({ customerDetails, cartItems, setCartItems }) {
       const result = await response.json();
       setOrderDetails(result); // Save order details to state
       setIsModalVisible(true); // Show the modal on successful order placement
+      localStorage.clear(); // Clear all local storage data
+      setCartItems([]); // Clear cart items from state
     } catch (error) {
       console.error("Failed to place order:", error);
       message.error("Failed to place order. Please try again.");
