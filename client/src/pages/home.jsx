@@ -15,16 +15,24 @@ function Home() {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [cartVisibility, setCartVisibility] = useState(false);
   const [productsInCart, setProductsInCart] = useState([]);
+  const [cartItemCount, setCartItemCount] = useState(0);
 
   useEffect(() => {
     const savedProducts = JSON.parse(localStorage.getItem("productsInCart"));
     if (savedProducts) {
       setProductsInCart(savedProducts);
+      setCartItemCount(
+        savedProducts.reduce((total, product) => total + product.quantity, 0)
+      );
     }
   }, []);
 
   useEffect(() => {
     localStorage.setItem("productsInCart", JSON.stringify(productsInCart));
+
+    setCartItemCount(
+      productsInCart.reduce((total, product) => total + product.quantity, 0)
+    );
   }, [productsInCart]);
 
   const addToCart = (product) => {
@@ -122,7 +130,13 @@ function Home() {
                   className={Styles.loginBtn}
                 >
                   <FiShoppingCart size={23} style={{ marginRight: "8" }} />
-                  Cart
+                  <span className={Styles.cartIcon}>
+                    {cartItemCount > 0 && (
+                      <span className={Styles.cartItemCount}>
+                        {cartItemCount}
+                      </span>
+                    )}
+                  </span>
                 </Button>
               </Space>
             </ConfigProvider>
