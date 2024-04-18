@@ -28,7 +28,7 @@ function AdminGetProducts({ selectedCategory }) {
   };
 
   const deleteProduct = (id) => {
-    fetch(`https://hakims-livs-webbshop-1.onrender.com/products/${id}`, {
+    fetch(`http://localhost:8080/products${id}`, {
       method: "DELETE",
     })
       .then((response) => {
