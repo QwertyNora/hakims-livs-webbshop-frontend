@@ -15,7 +15,7 @@ function AdminOrders() {
   const [selectedCustomerInfo, setSelectedCustomerInfo] = useState({});
 
   useEffect(() => {
-    fetch("http://localhost:8080/orders")
+    fetch("https://hakims-livs-webbshop-1.onrender.com/orders")
       .then((response) => response.json())
       .then((data) => {
         setAllOrders(data);
