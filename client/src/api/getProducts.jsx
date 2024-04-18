@@ -10,7 +10,7 @@ function GetAllProducts({ selectedCategory, addToCart }) {
   const [productsInCart, setProductsInCart] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8080/products/")
+    fetch("https://hakims-livs-webbshop-1.onrender.com/products")
       .then((response) => response.json())
       .then((data) => {
         setAllProducts(data);

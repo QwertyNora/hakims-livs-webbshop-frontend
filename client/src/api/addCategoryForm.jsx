@@ -24,7 +24,7 @@ function AddCategoryForm({ showModal, setShowModal, fetchCategories }) {
 
   const onFinish = async (values) => {
     setConfirmLoading(true);
-    fetch("http://localhost:8080/categories/new", {
+    fetch("https://hakims-livs-webbshop-1.onrender.com/categories/new", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(values),
