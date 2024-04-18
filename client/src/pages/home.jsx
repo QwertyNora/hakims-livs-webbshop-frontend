@@ -104,6 +104,12 @@ function Home() {
               }}
             >
               <Space>
+                <Link to="/admin">
+                  <Button className={Styles.loginBtn}>
+                    <RxAvatar size={25} style={{ marginRight: "8" }} />
+                    admin
+                  </Button>
+                </Link>
                 <Link to="/login">
                   <Button className={Styles.loginBtn}>
                     <RxAvatar size={25} style={{ marginRight: "8" }} />
