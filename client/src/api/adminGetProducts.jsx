@@ -28,7 +28,7 @@ function AdminGetProducts({ selectedCategory }) {
   };
 
   const deleteProduct = (id) => {
-    fetch(`http://localhost:8080/products${id}`, {
+    fetch(`http://localhost:8080/products/${id}`, {
       method: "DELETE",
     })
       .then((response) => {
