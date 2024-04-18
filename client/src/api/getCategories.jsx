@@ -1,27 +1,46 @@
-import React, { useState, useEffect } from 'react';
-import Styles from '../styles/getAllProducts.module.css'; // Adjust as necessary for styling
+import React, { useState, useEffect } from "react";
+import Styles from "../styles/home.module.css";
 
-function DisplayCategories() {
+function DisplayCategories({ onCategorySelect }) {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    fetch('https://hakims-livs-webbshop-1.onrender.com/categories')
+    fetch("http://localhost:8080/categories")
       .then((response) => response.json())
       .then((data) => {
-        // Assuming the backend directly returns an array of categories
         setCategories(data);
-        
       })
-      .catch((error) => console.error('Error fetching categories:', error));
+      .catch((error) => console.error("Error fetching categories:", error));
   }, []);
 
+  const handleCategorySelect = (categoryId, event) => {
+    event.preventDefault();
+    onCategorySelect(categoryId);
+  };
+
   return (
-    <div className={Styles.categoriesContainer}>
-      <h2>Categories</h2>
+    <div className={`${Styles.categoryContainer} ${Styles.SideNav}`}>
+      <h2 className={Styles.categoriesHeader}>Categories</h2>
       <ul className={Styles.categoryList}>
-        {categories.map((category, index) => (
-          // Continue using category name as key if it's unique, otherwise use index
-          <li key={category.name || index}>{category.name}</li>
+        <li>
+          <a
+            href="#"
+            className={Styles.categoryLink}
+            onClick={(e) => handleCategorySelect("", e)}
+          >
+            All
+          </a>
+        </li>
+        {categories.map((category) => (
+          <li key={category._id}>
+            <a
+              href="#"
+              className={Styles.categoryLink}
+              onClick={(e) => handleCategorySelect(category._id, e)}
+            >
+              {category.name}
+            </a>
+          </li>
         ))}
       </ul>
     </div>
