@@ -12,7 +12,7 @@ function AdminGetProducts({ selectedCategory }) {
   const [open, setOpen] = useState(false);
 
   const fetchProducts = () => {
-    fetch("http://localhost:8080/products")
+    fetch("https://hakims-livs-webbshop-1.onrender.com/products")
       .then((response) => response.json())
       .then((data) => setProducts(data))
       .catch((error) => console.error("Error fetching data:", error));
@@ -28,7 +28,7 @@ function AdminGetProducts({ selectedCategory }) {
   };
 
   const deleteProduct = (id) => {
-    fetch(`http://localhost:8080/products/${id}`, {
+    fetch(`https://hakims-livs-webbshop-1.onrender.com/products/${id}`, {
       method: "DELETE",
     })
       .then((response) => {

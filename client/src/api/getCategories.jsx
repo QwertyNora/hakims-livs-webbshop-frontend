@@ -5,7 +5,7 @@ function DisplayCategories({ onCategorySelect }) {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8080/categories")
+    fetch("https://hakims-livs-webbshop-1.onrender.com/categories")
       .then((response) => response.json())
       .then((data) => {
         setCategories(data);
