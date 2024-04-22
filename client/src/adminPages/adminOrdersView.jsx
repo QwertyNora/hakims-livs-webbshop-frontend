@@ -18,7 +18,13 @@ function AdminOrders() {
     fetch(process.env.REACT_APP_BACKEND_URL + "/orders")
       .then((response) => response.json())
       .then((data) => {
-        setAllOrders(data);
+        const orders = data.orders || [];
+
+        const ordersWithData = orders.map((order) => ({
+          ...order,
+          products: order.products || [],
+        }));
+        setAllOrders(ordersWithData);
       })
       .catch((error) => {
         console.error("Error fetching orders:", error);
