@@ -15,7 +15,7 @@ function AdminOrders() {
   const [selectedCustomerInfo, setSelectedCustomerInfo] = useState({});
 
   useEffect(() => {
-    fetch("http://localhost:8080/orders")
+    fetch(process.env.REACT_APP_BACKEND_URL + "/orders")
       .then((response) => response.json())
       .then((data) => {
         setAllOrders(data);
