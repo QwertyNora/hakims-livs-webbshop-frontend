@@ -15,7 +15,6 @@ import {
 import { Link } from "react-router-dom";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import Styles from "../styles/pickingList.module.css";
-import axios from "axios";
 
 const { Column } = Table;
 const { Header, Content, Footer } = Layout;
@@ -50,7 +49,7 @@ function AdminOrders() {
 
   const showEditModal = (record) => {
     setSelectedOrderForEdit(record);
-    setEditedStatus(record.status);
+    setEditedStatus(record.status); // Set initial status in the input field
     setEditModalVisible(true);
   };
 
@@ -60,9 +59,15 @@ function AdminOrders() {
 
   const deleteOrder = async (orderId) => {
     try {
-      await axios.delete(
-        `${process.env.REACT_APP_BACKEND_URL}/orders/${orderId}/delete`
+      const response = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/orders/${orderId}/delete`,
+        {
+          method: "DELETE",
+        }
       );
+      if (!response.ok) {
+        throw new Error("Failed to delete order");
+      }
       message.success("Order deleted successfully");
       fetchOrders();
     } catch (error) {
@@ -70,20 +75,29 @@ function AdminOrders() {
       message.error("Failed to delete order");
     }
   };
+
   const handleEditStatus = async () => {
     try {
-      await axios.put(
+      const response = await fetch(
         `${process.env.REACT_APP_BACKEND_URL}/orders/${selectedOrderForEdit._id}/status`,
         {
-          status: editedStatus,
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ status: editedStatus }),
         }
       );
-
+      if (!response.ok) {
+        throw new Error("Failed to update order status");
+      }
+      // If successful, close modal and fetch updated orders
       setEditModalVisible(false);
       fetchOrders();
       message.success("Successfully edited status");
     } catch (error) {
       console.error("Error updating order status:", error);
+      message.error("Failed to update order status");
     }
   };
 
@@ -114,7 +128,7 @@ function AdminOrders() {
   const closeModal = () => {
     setModalVisible(false);
     setCustomerInfoModalVisible(false);
-    setEditModalVisible(false);
+    setEditModalVisible(false); // Close edit modal on general close
     setSelectedProducts([]);
     setSelectedCustomerInfo({});
     setSelectedOrderForEdit(null);
