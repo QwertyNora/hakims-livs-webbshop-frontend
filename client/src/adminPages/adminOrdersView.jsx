@@ -142,7 +142,7 @@ function AdminOrders() {
             <div key={index}>
               <ul>
                 <li className={Styles.pickingList}>
-                  <p>{product.title}</p>
+                  {/* <p>{product.title}</p> */}
                   <p>{product.productId}</p>
                   <p>Quantity: {product.quantity}</p>
                   <p>Unit Price: {product.unitPrice}</p>
