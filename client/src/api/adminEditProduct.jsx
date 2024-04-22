@@ -109,7 +109,7 @@ const AdminEditProduct = ({
 
         <Form.Item
           label="Product Category"
-          name="category" // Corrected to match the product data key
+          name="category"
           rules={[
             { required: false, message: "Please input the product category!" },
           ]}
@@ -130,7 +130,7 @@ const AdminEditProduct = ({
 
         <Form.Item
           label="Product Brand"
-          name="brand" // Corrected to match the product data key
+          name="brand"
           rules={[
             { required: false, message: "Please input the product brand!" },
           ]}
@@ -140,7 +140,7 @@ const AdminEditProduct = ({
 
         <Form.Item
           label="Product Price"
-          name="price" // Corrected to match the product data key
+          name="price"
           rules={[
             { required: false, message: "Please input the product price!" },
           ]}
@@ -150,7 +150,7 @@ const AdminEditProduct = ({
 
         <Form.Item
           label="Product Quantity"
-          name="quantity" // Corrected to match the product data key
+          name="quantity"
           rules={[
             { required: false, message: "Please input the product quantity!" },
           ]}
@@ -160,7 +160,7 @@ const AdminEditProduct = ({
 
         <Form.Item
           label="Product Description"
-          name="description" // Corrected to match the product data key
+          name="description"
           rules={[
             {
               required: false,
