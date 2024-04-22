@@ -42,7 +42,7 @@ const AddProductsForm = () => {
     setLoading(true);
     try {
       const response = await fetch(
-        process.env.REACT_APP_BACKEND_URL + "/products/new",
+        "https://hakims-livs-webbshop-1.onrender.com/products/new",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
