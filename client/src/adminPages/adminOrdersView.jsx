@@ -1,5 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Breadcrumb, Layout, Menu, Tag, Table, theme, Modal } from "antd";
+import {
+  Breadcrumb,
+  Layout,
+  Menu,
+  Tag,
+  Table,
+  theme,
+  Modal,
+  Button,
+} from "antd";
 import { Link } from "react-router-dom";
 import Styles from "../styles/pickingList.module.css";
 
@@ -15,7 +24,7 @@ function AdminOrders() {
   const [selectedCustomerInfo, setSelectedCustomerInfo] = useState({});
 
   useEffect(() => {
-    fetch("http://localhost:8080/orders")
+    fetch(process.env.REACT_APP_BACKEND_URL + "/orders")
       .then((response) => response.json())
       .then((data) => {
         setAllOrders(data);
@@ -24,6 +33,8 @@ function AdminOrders() {
         console.error("Error fetching orders:", error);
       });
   }, []);
+
+  console.log("All Orders:", allOrders);
 
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -140,6 +151,7 @@ function AdminOrders() {
                   <p>{product.productId}</p>
                   <p>Quantity: {product.quantity}</p>
                   <p>Unit Price: {product.unitPrice}</p>
+                  <Button type="primary">Skriv ut </Button>
                 </li>
               </ul>
             </div>
@@ -158,6 +170,7 @@ function AdminOrders() {
               <p>Phone Number: {selectedCustomerInfo.phoneNumber}</p>
               <p>Address: {selectedCustomerInfo.address}</p>
               <p>Invoice Address: {selectedCustomerInfo.invoiceAddress}</p>
+              <Button type="primary">Skriv ut </Button>
             </>
           )}
         </Modal>

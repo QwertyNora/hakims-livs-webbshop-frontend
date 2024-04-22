@@ -14,7 +14,7 @@ function SearchBar({ addToCart }) {
   const fetchProducts = async () => {
     try {
       const response = await fetch(
-        "https://hakims-livs-webbshop-1.onrender.com/products"
+        process.env.REACT_APP_BACKEND_URL + "/products"
       );
       const data = await response.json();
       const newOptions = data.map((product) => ({
