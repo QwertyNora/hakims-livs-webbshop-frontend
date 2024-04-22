@@ -1,5 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Breadcrumb, Layout, Menu, Tag, Table, theme, Modal } from "antd";
+import {
+  Breadcrumb,
+  Layout,
+  Menu,
+  Tag,
+  Table,
+  theme,
+  Modal,
+  Button,
+} from "antd";
 import { Link } from "react-router-dom";
 import Styles from "../styles/pickingList.module.css";
 
@@ -18,18 +27,14 @@ function AdminOrders() {
     fetch(process.env.REACT_APP_BACKEND_URL + "/orders")
       .then((response) => response.json())
       .then((data) => {
-        const orders = data.orders || [];
-
-        const ordersWithData = orders.map((order) => ({
-          ...order,
-          products: order.products || [],
-        }));
-        setAllOrders(ordersWithData);
+        setAllOrders(data);
       })
       .catch((error) => {
         console.error("Error fetching orders:", error);
       });
   }, []);
+
+  console.log("All Orders:", allOrders);
 
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -142,10 +147,11 @@ function AdminOrders() {
             <div key={index}>
               <ul>
                 <li className={Styles.pickingList}>
-                  {/* <p>{product.title}</p> */}
+                  <p>{product.title}</p>
                   <p>{product.productId}</p>
                   <p>Quantity: {product.quantity}</p>
                   <p>Unit Price: {product.unitPrice}</p>
+                  <Button type="primary">Skriv ut </Button>
                 </li>
               </ul>
             </div>
@@ -164,6 +170,7 @@ function AdminOrders() {
               <p>Phone Number: {selectedCustomerInfo.phoneNumber}</p>
               <p>Address: {selectedCustomerInfo.address}</p>
               <p>Invoice Address: {selectedCustomerInfo.invoiceAddress}</p>
+              <Button type="primary">Skriv ut </Button>
             </>
           )}
         </Modal>
