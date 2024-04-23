@@ -82,9 +82,6 @@ function Home() {
   return (
     <>
       {/* Top AD section */}
-      <div className={Styles.topad}>
-        <a className={Styles.topAdLink}>Fri frakt på ditt första köp!</a>
-      </div>
 
       <div className={Styles.heroNavContainer}>
         <div className={Styles.logo}>
@@ -109,18 +106,6 @@ function Home() {
               }}
             >
               <Space>
-                <Link to="/admin">
-                  <Button className={Styles.loginBtn}>
-                    <RxAvatar size={25} style={{ marginRight: "8" }} />
-                    admin
-                  </Button>
-                </Link>
-                <Link to="/login">
-                  <Button className={Styles.loginBtn}>
-                    <RxAvatar size={25} style={{ marginRight: "8" }} />
-                    Log In
-                  </Button>
-                </Link>
                 <Button
                   onClick={handleCartToggle}
                   type="primary"
