@@ -8,8 +8,12 @@ import {
   theme,
   Modal,
   Button,
+  Popconfirm,
+  Input,
+  message,
 } from "antd";
 import { Link } from "react-router-dom";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import Styles from "../styles/pickingList.module.css";
 
 const { Column } = Table;
@@ -22,8 +26,17 @@ function AdminOrders() {
   const [customerInfoModalVisible, setCustomerInfoModalVisible] =
     useState(false);
   const [selectedCustomerInfo, setSelectedCustomerInfo] = useState({});
+  const [showEditProductModal, setShowEditProductModal] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [editModalVisible, setEditModalVisible] = useState(false);
+  const [selectedOrderForEdit, setSelectedOrderForEdit] = useState(null);
+  const [editedStatus, setEditedStatus] = useState("");
 
   useEffect(() => {
+    fetchOrders();
+  }, []);
+
+  const fetchOrders = () => {
     fetch(process.env.REACT_APP_BACKEND_URL + "/orders")
       .then((response) => response.json())
       .then((data) => {
@@ -32,14 +45,69 @@ function AdminOrders() {
       .catch((error) => {
         console.error("Error fetching orders:", error);
       });
-  }, []);
+  };
 
-  console.log("All Orders:", allOrders);
+  const showEditModal = (record) => {
+    setSelectedOrderForEdit(record);
+    setEditedStatus(record.status); // Set initial status in the input field
+    setEditModalVisible(true);
+  };
+
+  const handleDelete = (record) => {
+    deleteOrder(record._id);
+  };
+
+  const deleteOrder = async (orderId) => {
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/orders/${orderId}/delete`,
+        {
+          method: "DELETE",
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Failed to delete order");
+      }
+      message.success("Order deleted successfully");
+      fetchOrders();
+    } catch (error) {
+      console.error("Error deleting order:", error);
+      message.error("Failed to delete order");
+    }
+  };
+
+  const handleEditStatus = async () => {
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/orders/${selectedOrderForEdit._id}/status`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ status: editedStatus }),
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Failed to update order status");
+      }
+      // If successful, close modal and fetch updated orders
+      setEditModalVisible(false);
+      fetchOrders();
+      message.success("Successfully edited status");
+    } catch (error) {
+      console.error("Error updating order status:", error);
+      message.error("Failed to update order status");
+    }
+  };
+
+  const handleInputChange = (e) => {
+    setEditedStatus(e.target.value);
+  };
 
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
-
   const items = [
     { key: 1, label: "Storage", path: "/admin" },
     { key: 2, label: "Add products", path: "/admin/add/products" },
@@ -60,8 +128,10 @@ function AdminOrders() {
   const closeModal = () => {
     setModalVisible(false);
     setCustomerInfoModalVisible(false);
+    setEditModalVisible(false); // Close edit modal on general close
     setSelectedProducts([]);
     setSelectedCustomerInfo({});
+    setSelectedOrderForEdit(null);
   };
 
   const getStatusTagColor = (status) => {
@@ -135,8 +205,50 @@ function AdminOrders() {
                 </a>
               )}
             />
+            <Column
+              title="Edit Status"
+              key="edit"
+              render={(text, record) => (
+                <Button type="primary" onClick={() => showEditModal(record)}>
+                  Edit Status <EditOutlined />
+                </Button>
+              )}
+            />
+            <Column
+              title="Delete"
+              key="delete"
+              render={(text, record) => (
+                <Popconfirm
+                  title="Are you sure to delete this order?"
+                  onConfirm={() => handleDelete(record)}
+                  okText="Yes"
+                  cancelText="No"
+                >
+                  <Button danger>
+                    Delete <DeleteOutlined />
+                  </Button>
+                </Popconfirm>
+              )}
+            />
           </Table>
         </div>
+        {/* Edit Status Modal */}
+        <Modal
+          title="Edit Status"
+          visible={editModalVisible}
+          onCancel={closeModal}
+          footer={[
+            <Button key="cancel" onClick={closeModal}>
+              Cancel
+            </Button>,
+            <Button key="submit" type="primary" onClick={handleEditStatus}>
+              Submit
+            </Button>,
+          ]}
+        >
+          <Input value={editedStatus} onChange={handleInputChange} />
+        </Modal>
+        {/* Picking List Modal */}
         <Modal
           title="Picking List"
           visible={modalVisible}
@@ -151,12 +263,13 @@ function AdminOrders() {
                   <p>{product.productId}</p>
                   <p>Quantity: {product.quantity}</p>
                   <p>Unit Price: {product.unitPrice}</p>
-                  <Button type="primary">Skriv ut </Button>
                 </li>
+                <Button type="primary">Skriv ut </Button>
               </ul>
             </div>
           ))}
         </Modal>
+        {/* Customer Info Modal */}
         <Modal
           title="Customer Info"
           visible={customerInfoModalVisible}

@@ -41,11 +41,14 @@ const AddProductsForm = () => {
     const { Category, ...otherProductData } = values;
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:8080/products/new", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...otherProductData, category: Category }),
-      });
+      const response = await fetch(
+        "https://hakims-livs-webbshop-1.onrender.com/products/new",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ ...otherProductData, category: Category }),
+        }
+      );
       if (!response.ok) {
         throw new Error("Failed to add product");
       }

@@ -9,6 +9,7 @@ import SearchBar from "../components/searchBar";
 import HakimLogo from "../images/HakimLogo.png";
 import DisplayCategories from "../api/getCategories";
 import Styles from "../styles/home.module.css";
+import Logo from "../images/HakimLivs.png";
 
 function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -88,11 +89,7 @@ function Home() {
       <div className={Styles.heroNavContainer}>
         <div className={Styles.logo}>
           <a href="/">
-            <img
-              src={HakimLogo}
-              alt="Hakim Logo"
-              className={Styles.hakimLogo}
-            />
+            <img src={Logo} alt="Hakim Logo" className={Styles.hakimLogo} />
           </a>
         </div>
         <div className={Styles.SearchNav}>

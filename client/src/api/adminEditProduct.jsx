@@ -57,11 +57,14 @@ const AdminEditProduct = ({
     console.log("Selected product ID:", selectedProduct._id);
     const updatedProduct = { ...values };
 
-    fetch(process.env.REACT_APP_BACKEND_URL + `/${selectedProduct._id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(updatedProduct),
-    })
+    fetch(
+      process.env.REACT_APP_BACKEND_URL + `products/${selectedProduct._id}`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedProduct),
+      }
+    )
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -109,7 +112,7 @@ const AdminEditProduct = ({
 
         <Form.Item
           label="Product Category"
-          name="category" // Corrected to match the product data key
+          name="category"
           rules={[
             { required: false, message: "Please input the product category!" },
           ]}
@@ -130,7 +133,7 @@ const AdminEditProduct = ({
 
         <Form.Item
           label="Product Brand"
-          name="brand" // Corrected to match the product data key
+          name="brand"
           rules={[
             { required: false, message: "Please input the product brand!" },
           ]}
@@ -140,7 +143,7 @@ const AdminEditProduct = ({
 
         <Form.Item
           label="Product Price"
-          name="price" // Corrected to match the product data key
+          name="price"
           rules={[
             { required: false, message: "Please input the product price!" },
           ]}
@@ -150,7 +153,7 @@ const AdminEditProduct = ({
 
         <Form.Item
           label="Product Quantity"
-          name="quantity" // Corrected to match the product data key
+          name="quantity"
           rules={[
             { required: false, message: "Please input the product quantity!" },
           ]}
@@ -160,7 +163,7 @@ const AdminEditProduct = ({
 
         <Form.Item
           label="Product Description"
-          name="description" // Corrected to match the product data key
+          name="description"
           rules={[
             {
               required: false,
