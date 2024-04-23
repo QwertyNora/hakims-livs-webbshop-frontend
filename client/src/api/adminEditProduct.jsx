@@ -58,7 +58,7 @@ const AdminEditProduct = ({
     const updatedProduct = { ...values };
 
     fetch(
-      process.env.REACT_APP_BACKEND_URL + `products/${selectedProduct._id}`,
+      process.env.REACT_APP_BACKEND_URL + `/products/${selectedProduct._id}`,
       {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
