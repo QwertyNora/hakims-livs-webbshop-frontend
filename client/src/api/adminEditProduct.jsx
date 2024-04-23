@@ -57,11 +57,14 @@ const AdminEditProduct = ({
     console.log("Selected product ID:", selectedProduct._id);
     const updatedProduct = { ...values };
 
-    fetch(process.env.REACT_APP_BACKEND_URL + `/${selectedProduct._id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(updatedProduct),
-    })
+    fetch(
+      process.env.REACT_APP_BACKEND_URL + `products/${selectedProduct._id}`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedProduct),
+      }
+    )
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
